@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Save Inputs</title>
+  <style>
+    body {
+      margin: 0;
+      display: flex;
+      min-height: 100vh;
+      font-family: sans-serif;
+    }
+    .ad {
+      flex: 1;
+      background: #f0f0f0;
+      padding: 20px;
+    }
+    .main {
+      flex: 2;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background: #fff;
+    }
+    input[type="text"] {
+      width: 100%;
+      margin-bottom: 10px;
+      padding: 8px;
+      font-size: 16px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div class="ad"></div>
+
+  <div class="main">
+    <h4>Create a Race</h4>
+    <form id="wordForm">
+      <input type="text" placeholder="Input 1"><br>
+      <input type="text" placeholder="Input 2"><br>
+      <input type="text" placeholder="Input 3"><br>
+      <input type="text" placeholder="Input 4"><br>
+      <input type="text" placeholder="Input 5"><br>
+      <input type="text" placeholder="Input 6"><br>
+      <input type="text" placeholder="Input 7"><br>
+      <input type="text" placeholder="Input 8"><br>
+      <input type="text" placeholder="Input 9"><br>
+      <input type="text" placeholder="Input 10"><br>
+      <button type="button" onclick="saveWords()">Save Words</button>
+    </form>
+  </div>
+
+  <div class="ad"></div>
+
+  <script>
+   
+  function saveWords() {
+    const inputs = document.querySelectorAll('#wordForm input');
+    const words = Array.from(inputs).map(input => input.value.trim());
+    localStorage.setItem('boardRaceWords', JSON.stringify(words));
+    localStorage.setItem('lastPath', 'board-race.html');
+
+    alert('Words saved! Opening board race viewer...');
+    window.open('index.html', '_blank'); // Change this to your actual file name if different
+  }
+</script>
+
+
+</body>
+</html>

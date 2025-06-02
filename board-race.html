@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Board Race</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 40px;
+      font-size: 16px;
+    }
+    p {
+      margin: 20px 0;
+      border-bottom: 1px dashed #ccc;
+      padding-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="wordList">
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+  </div>
+
+  <script>
+    function loadWords() {
+      const words = JSON.parse(localStorage.getItem('boardRaceWords') || '[]');
+      const ps = document.querySelectorAll('#wordList p');
+      ps.forEach((p, i) => {
+        p.textContent = words[i] || '';
+      });
+    }
+
+    // Load words immediately on page load
+    window.addEventListener('DOMContentLoaded', loadWords);
+  </script>
+</body>
+</html>

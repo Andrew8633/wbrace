@@ -1,14 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>WBRACE!</title>
-    <link rel="stylesheet" href="style.css">
-  </head>
-  <body>
-    <h1>Board Race Website Coming Soon!</h1>
-    <script src="index.js"></script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VOCABULARY RACE</title>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      font-family: sans-serif;
+    }
+    #input-container {
+      padding: 10px;
+      background-color: #f0f0f0;
+      border-bottom: 1px solid #ccc;
+    }
+    #path-input {
+      width: 100%;
+      padding: 8px;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+    #template-link {
+      display: block;
+      margin-top: 5px;
+      font-size: 14px;
+      color: #0077cc;
+      text-decoration: none;
+    }
+    #template-link:hover {
+      text-decoration: underline;
+    }
+    .container {
+      display: flex;
+      height: calc(100% - 50px); /* Leave space for input */
+    }
+    iframe {
+      width: 50%;
+      height: 100%;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="input-container">
+    <input type="text" id="path-input" placeholder="Enter file path or URL and press Enter" />
+    <a href="create.html" id="template-link">Browse Templates or Create</a>
+  </div>
+
+  <div class="container">
+    <iframe id="iframe1"></iframe>
+    <iframe id="iframe2"></iframe>
+  </div>
+
+  <script>
+    const input = document.getElementById('path-input');
+    const iframe1 = document.getElementById('iframe1');
+    const iframe2 = document.getElementById('iframe2');
+
+    // Load from localStorage if available
+    const savedPath = localStorage.getItem('lastPath');
+    if (savedPath) {
+      input.value = savedPath;
+      iframe1.src = savedPath;
+      iframe2.src = savedPath;
+    }
+
+    input.addEventListener('keypress', function(event) {
+      if (event.key === 'Enter') {
+        const path = input.value.trim();
+        if (path) {
+          localStorage.setItem('lastPath', path); // Save to localStorage
+          iframe1.src = path;
+          iframe2.src = path;
+        }
+      }
+    });
+  </script>
+
+</body>
 </html>
