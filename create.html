@@ -1,83 +1,111 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-S2G3J82KWQ"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-S2G3J82KWQ');
-</script>
-  <meta charset="UTF-8">
-  <title>Save Inputs</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Create a Board Race</title>
   <style>
     body {
-      margin: 0;
-      display: flex;
-      min-height: 100vh;
       font-family: sans-serif;
-    }
-    .ad {
-      flex: 1;
-      background: #f0f0f0;
       padding: 20px;
+      background: #f9f9f9;
     }
-    .main {
-      flex: 2;
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 20px;
+    .slot {
+      margin-bottom: 20px;
+      padding: 10px;
       background: #fff;
+      border: 1px solid #ccc;
     }
     input[type="text"] {
-      width: 100%;
-      margin-bottom: 10px;
-      padding: 8px;
       font-size: 16px;
+      margin: 3px 0;
+      width: 90%;
+      display: block;
+    }
+    .name-input {
+      width: 200px;
+      margin-bottom: 10px;
     }
     button {
-      padding: 10px 20px;
-      font-size: 16px;
+      margin-left: 5px;
     }
   </style>
 </head>
 <body>
-  <div class="ad"></div>
 
-  <div class="main">
-    <h4>Create a WB Race</h4>
-    <form id="wordForm">
-      <input type="text" placeholder="Input 1"><br>
-      <input type="text" placeholder="Input 2"><br>
-      <input type="text" placeholder="Input 3"><br>
-      <input type="text" placeholder="Input 4"><br>
-      <input type="text" placeholder="Input 5"><br>
-      <input type="text" placeholder="Input 6"><br>
-      <input type="text" placeholder="Input 7"><br>
-      <input type="text" placeholder="Input 8"><br>
-      <input type="text" placeholder="Input 9"><br>
-      <input type="text" placeholder="Input 10"><br>
-      <button type="button" onclick="saveWords()">Use this WB Race</button>
-    </form>
-  </div>
+  <h1>Board Race Editor</h1>
 
-  <div class="ad"></div>
+  <div id="slots"></div>
 
   <script>
-   
-  function saveWords() {
-    const inputs = document.querySelectorAll('#wordForm input');
-    const words = Array.from(inputs).map(input => input.value.trim());
-    localStorage.setItem('boardRaceWords', JSON.stringify(words));
-    localStorage.setItem('lastPath', 'board-race.html');
+    const slotCount = 10;
+    const container = document.getElementById('slots');
 
-    alert('Words saved! Opening board race viewer...');
-    window.open('index.html', '_blank'); // Change this to your actual file name if different
-  }
-</script>
+    for (let i = 1; i <= slotCount; i++) {
+      const slotKey = `slot${i}`;
+      const saved = JSON.parse(localStorage.getItem(slotKey) || '{"name":"", "html":""}');
+      const lines = saved.html ? saved.html.split('\n') : [];
 
+      const div = document.createElement('div');
+      div.className = 'slot';
+
+      // Build 10 inputs for lines
+      let inputsHTML = '';
+      for (let lineNum = 0; lineNum < 10; lineNum++) {
+        inputsHTML += `<input type="text" id="html${i}_${lineNum}" value="${lines[lineNum] || ''}" placeholder="Line ${lineNum + 1}" />`;
+      }
+
+      div.innerHTML = `
+        <strong>Slot ${i}:</strong>
+        <input class="name-input" type="text" placeholder="Name this set" value="${saved.name}" id="name${i}" />
+        <button onclick="loadToRace(${i})">LOAD</button>
+        <button onclick="toggleEditor(${i})">EDIT</button>
+        <div id="editor${i}" style="display: none; margin-top:10px;">
+          ${inputsHTML}
+        </div>
+      `;
+      container.appendChild(div);
+
+      // Add input event listeners for persistent save on all inputs inside this slot
+      const nameInput = document.getElementById(`name${i}`);
+      nameInput.addEventListener('input', () => saveSlot(i));
+
+      for (let lineNum = 0; lineNum < 10; lineNum++) {
+        const lineInput = document.getElementById(`html${i}_${lineNum}`);
+        lineInput.addEventListener('input', () => saveSlot(i));
+      }
+    }
+
+    function toggleEditor(i) {
+      const editor = document.getElementById(`editor${i}`);
+      editor.style.display = editor.style.display === 'none' ? 'block' : 'none';
+    }
+
+    function saveSlot(i) {
+      const name = document.getElementById(`name${i}`).value;
+      let htmlLines = [];
+      for (let lineNum = 0; lineNum < 10; lineNum++) {
+        const val = document.getElementById(`html${i}_${lineNum}`).value;
+        htmlLines.push(val);
+      }
+      const html = htmlLines.join('\n');
+      localStorage.setItem(`slot${i}`, JSON.stringify({ name, html }));
+      // No alert since it's auto-saving!
+    }
+
+    function loadToRace(i) {
+      const slot = localStorage.getItem(`slot${i}`);
+      if (!slot) {
+        alert("This slot is empty.");
+        return;
+      }
+      const data = JSON.parse(slot);
+      // Save lines as array for race page
+      const lines = data.html.split('\n');
+      localStorage.setItem('boardRaceWords', JSON.stringify(lines));
+      window.location.href = "race.html";
+    }
+  </script>
 
 </body>
 </html>

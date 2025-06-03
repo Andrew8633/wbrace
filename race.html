@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Board Race</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 20px;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      box-sizing: border-box;
+    }
+    #top-bar {
+      margin-bottom: 10px;
+    }
+    #back-link {
+      text-decoration: none;
+      color: #0077cc;
+      font-weight: bold;
+      font-size: 16px;
+    }
+    #back-link:hover {
+      text-decoration: underline;
+    }
+    #iframe-container {
+      display: flex;
+      flex-grow: 1;
+      gap: 20px;
+    }
+    iframe {
+      width: 50%;
+      height: 100%;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="top-bar">
+    <a id="back-link" href="create.html">← Back to Editor</a>
+  </div>
+
+  <div id="iframe-container">
+    <iframe id="iframe1"></iframe>
+    <iframe id="iframe2"></iframe>
+  </div>
+
+  <script>
+    // Get the words from localStorage
+    const words = JSON.parse(localStorage.getItem('boardRaceWords') || '[]');
+
+    // Generate the HTML content with 10 <p> elements
+    function generateContent(words) {
+      let content = `
+        <html>
+          <head>
+            <style>
+              body {
+                font-family: sans-serif;
+                margin: 20px;
+                font-size: 16px;
+              }
+              p {
+                margin: 20px 0;
+                border-bottom: 1px dashed #ccc;
+                padding-bottom: 10px;
+              }
+            </style>
+          </head>
+          <body>
+      `;
+      for (let i = 0; i < 10; i++) {
+        content += `<p>${words[i] || ''}</p>`;
+      }
+      content += `</body></html>`;
+      return content;
+    }
+
+    const htmlContent = generateContent(words);
+
+    // Write the content into both iframes
+    function writeToIframe(iframe, content) {
+      const doc = iframe.contentDocument || iframe.contentWindow.document;
+      doc.open();
+      doc.write(content);
+      doc.close();
+    }
+
+    const iframe1 = document.getElementById('iframe1');
+    const iframe2 = document.getElementById('iframe2');
+
+    writeToIframe(iframe1, htmlContent);
+    writeToIframe(iframe2, htmlContent);
+  </script>
+
+</body>
+</html>

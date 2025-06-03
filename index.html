@@ -1,92 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-S2G3J82KWQ"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-S2G3J82KWQ');
-</script>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>WB race</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Welcome to WB Race</title>
   <style>
-    html, body {
-      height: 100%;
-      margin: 0;
+    body {
       font-family: sans-serif;
+      margin: 0;
+      padding: 20px;
+      line-height: 1.6;
+      background-color: #f9f9f9;
     }
-    #input-container {
-      padding: 10px;
-      background-color: #f0f0f0;
-      border-bottom: 1px solid #ccc;
+
+    h1, h2 {
+      color: #333;
     }
-    #path-input {
-      width: 100%;
-      padding: 8px;
-      font-size: 16px;
-      box-sizing: border-box;
-    }
-    #template-link {
-      display: block;
-      margin-top: 5px;
-      font-size: 14px;
+
+    a {
       color: #0077cc;
       text-decoration: none;
     }
-    #template-link:hover {
+
+    a:hover {
       text-decoration: underline;
     }
-    .container {
-      display: flex;
-      height: calc(100% - 50px); /* Leave space for input */
+
+    .section {
+      margin-bottom: 30px;
     }
-    iframe {
-      width: 50%;
-      height: 100%;
-      border: none;
+
+    .button {
+      display: inline-block;
+      background-color: #0077cc;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      text-decoration: none;
+      margin-top: 10px;
+    }
+
+    .button:hover {
+      background-color: #005fa3;
+    }
+
+    .highlight {
+      background-color: #fff3cd;
+      border-left: 5px solid #ffecb5;
+      padding: 10px;
+      font-weight: bold;
+      margin: 15px 0;
+      color: #856404;
+    }
+
+    .note {
+      font-size: 0.95em;
+      color: #555;
+      margin-top: 10px;
     }
   </style>
 </head>
 <body>
 
-  <div id="input-container">
-    <input type="text" id="path-input" placeholder="Enter file path or URL and press Enter" />
-    <a href="create.html" id="template-link">Create a Board Race</a>
+  <h1>Welcome to WB Race</h1>
+
+  <div class="section">
+    <h2>What is a Board Race?</h2>
+    <p>A board race is a fast-paced classroom activity where students compete in teams to fill the board with correct answers as quickly as possible. It’s commonly used in ESL classrooms for vocabulary review, spelling, grammar, or any recall-based task.</p>
+    <div class="highlight">
+      This site is designed to be <strong>projected directly onto the whiteboard</strong> — either using a standard projector or an interactive whiteboard — so students can race to complete the prompts using markers or touch input.
+    </div>
   </div>
 
-  <div class="container">
-    <iframe id="iframe1"></iframe>
-    <iframe id="iframe2"></iframe>
+  <div class="section">
+    <h2>Create or Edit a Race</h2>
+    <p>Use the builder to create new board race templates or load and update your saved ones. You can store up to 10 sets.</p>
+    <a href="create.html" class="button">Open the Race Builder</a>
+    <p class="note"><strong>Note:</strong> All templates are saved locally in your browser on this device. If you switch computers or browsers, your saved slots will not carry over.</p>
   </div>
 
-  <script>
-    const input = document.getElementById('path-input');
-    const iframe1 = document.getElementById('iframe1');
-    const iframe2 = document.getElementById('iframe2');
-
-    // Load from localStorage if available
-    const savedPath = localStorage.getItem('lastPath');
-    if (savedPath) {
-      input.value = savedPath;
-      iframe1.src = savedPath;
-      iframe2.src = savedPath;
-    }
-
-    input.addEventListener('keypress', function(event) {
-      if (event.key === 'Enter') {
-        const path = input.value.trim();
-        if (path) {
-          localStorage.setItem('lastPath', path); // Save to localStorage
-          iframe1.src = path;
-          iframe2.src = path;
-        }
-      }
-    });
-  </script>
+  <div class="section">
+    <h2>How to Use WB Race</h2>
+    <ul>
+      <li>Create or load a template with up to 10 prompts or words.</li>
+      <li>Load the template to the race screen to project in class.</li>
+      <li>Students compete to write the answers quickly on the board.</li>
+      <li>You can edit, rename, and reuse any set anytime — from the same computer.</li>
+    </ul>
+  </div>
 
 </body>
 </html>
