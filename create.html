@@ -1,15 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-S2G3J82KWQ"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-S2G3J82KWQ');
-</script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Create a Board Race</title>
@@ -41,22 +32,18 @@
       border: 1px solid #ccc;
     }
 
-    input[type="text"] {
-      font-size: 16px;
-      margin: 3px 0;
-      width: 90%;
-      display: block;
-    }
-
     .name-input {
       width: 300px;
       margin-bottom: 10px;
       font-weight: bold;
     }
 
-    button {
-      margin-left: 5px;
-    }
+    textarea {
+  width: 95%;
+  font-size: 16px;
+  line-height: 2.2;
+}
+
 
     #ad-container {
       width: 300px;
@@ -72,22 +59,12 @@
       position: sticky;
       top: 20px;
     }
-	 .ad-container {
-    position: sticky;
-    top: 20px;
-    width: 300px;
-    height: 600px;
-    background: #eee; /* or your ad content */
-  }
 
-  /* Hide ad on small screens */
-  
-	@media (max-width: 768px) {
-  #ad-sidebar {
-    display: none;
-  }
-}
-  }
+    @media (max-width: 768px) {
+      #ad-sidebar {
+        display: none;
+      }
+    }
   </style>
 </head>
 <body>
@@ -100,8 +77,21 @@
 
   <div id="ad-sidebar">
     <div id="ad-container">
-      <!-- Replace with your ad script -->
-      <p>300 × 600 Ad Space</p>
+      <div style="width: 300px; height: 600px; background: #fff; border: 4px solid #0077cc; border-radius: 12px; padding: 20px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);">
+        <div style="font-size: 20px; font-weight: bold; color: #0077cc; text-align: center; margin-top: 10px; margin-bottom: 20px;">
+          Project. Prompt. Play.<br />The ESL Race Game Teachers Love.
+        </div>
+        <ul style="font-size: 15px; color: #333; padding-left: 16px;">
+          <li style="margin-bottom: 12px; line-height: 1.4;">No accounts or logins needed</li>
+          <li style="margin-bottom: 12px; line-height: 1.4;">Run instantly from the browser</li>
+          <li style="margin-bottom: 12px; line-height: 1.4;">Perfect for projectors or smartboards</li>
+          <li style="margin-bottom: 12px; line-height: 1.4;">Use your own vocabulary lists</li>
+          <li style="margin-bottom: 12px; line-height: 1.4;">Engage students in active recall</li>
+        </ul>
+        <div style="font-size: 13px; text-align: center; color: #666; margin-top: 20px;">
+          Try it now at <strong>wbrace.com</strong>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -126,20 +116,20 @@
         ]
       },
       slot2: {
-  name: "Adverbs of Frequency – Fix the Mistakes",
-  lines: [
-    "I brush always my teeth in the morning.",
-    "She never is late for school.",
-    "They go sometimes to the movies.",
-    "He eats rarely vegetables.",
-    "We take usually the bus.",
-    "Do often you play video games?",
-    "My teacher gives homework always.",
-    "Tom usually is tired after work.",
-    "I see sometimes him on weekends.",
-    "We clean our house every week usually."
-  ]
-}
+        name: "Adverbs of Frequency – Fix the Mistakes",
+        lines: [
+          "I brush always my teeth in the morning.",
+          "She never is late for school.",
+          "They go sometimes to the movies.",
+          "He eats rarely vegetables.",
+          "We take usually the bus.",
+          "Do often you play video games?",
+          "My teacher gives homework always.",
+          "Tom usually is tired after work.",
+          "I see sometimes him on weekends.",
+          "We clean our house every week usually."
+        ]
+      }
     };
 
     for (let i = 1; i <= slotCount; i++) {
@@ -155,26 +145,23 @@
       }
 
       const lines = saved?.html ? saved.html.split('\n') : [];
-
       const div = document.createElement('div');
       div.className = 'slot';
 
-      let inputsHTML = '';
-      for (let lineNum = 0; lineNum < 10; lineNum++) {
-        const value = lines[lineNum] || '';
-        inputsHTML += `<input type="text" id="html${i}_${lineNum}" value="${value}" placeholder="Line ${lineNum + 1}" oninput="autoSave(${i})" />`;
-      }
-
+      let textValue = lines.join('\n');
       div.innerHTML = `
         <strong>Slot ${i}:</strong>
         <input class="name-input" type="text" id="name${i}" placeholder="Name this set" value="${saved?.name || ''}" oninput="autoSave(${i})" />
         <button onclick="loadToRace(${i})">LOAD</button>
         <button onclick="toggleEditor(${i})">EDIT</button>
         <div id="editor${i}" style="display: none; margin-top:10px;">
-          ${inputsHTML}
+          <textarea id="html${i}" rows="10" oninput="autoSave(${i})">${textValue}</textarea>
+          <p style="font-size: 13px; color: #555;">⚠ Enter one prompt per line. Max: 10 lines. Extra lines will be ignored.</p>
+          <p id="count${i}" style="font-size: 13px; margin-top: 5px;"></p>
         </div>
       `;
       container.appendChild(div);
+      autoSave(i); // initialize line count display
     }
 
     function toggleEditor(i) {
@@ -184,13 +171,21 @@
 
     function autoSave(i) {
       const name = document.getElementById(`name${i}`).value;
-      let htmlLines = [];
-      for (let lineNum = 0; lineNum < 10; lineNum++) {
-        const val = document.getElementById(`html${i}_${lineNum}`).value;
-        htmlLines.push(val);
+      const raw = document.getElementById(`html${i}`).value;
+      const lines = raw.split('\n').map(l => l.trim()).filter(Boolean);
+      const trimmed = lines.slice(0, 10);
+
+      const countText = document.getElementById(`count${i}`);
+      if (lines.length > 10) {
+        countText.innerHTML = `<span style="color:red;">⚠ Only first 10 prompts will be used (you entered ${lines.length})</span>`;
+      } else {
+        countText.textContent = `${lines.length}/10 prompts`;
       }
-      const html = htmlLines.join('\n');
-      localStorage.setItem(`slot${i}`, JSON.stringify({ name, html }));
+
+      localStorage.setItem(`slot${i}`, JSON.stringify({
+        name,
+        html: trimmed.join('\n')
+      }));
     }
 
     function loadToRace(i) {
