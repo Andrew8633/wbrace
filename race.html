@@ -11,26 +11,84 @@
       flex-direction: column;
       height: 100vh;
       box-sizing: border-box;
+      background-color: #fefefe;
     }
+
     #top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
       margin-bottom: 10px;
     }
+
     #back-link {
       text-decoration: none;
       color: #0077cc;
       font-weight: bold;
       font-size: 16px;
     }
+
     #back-link:hover {
       text-decoration: underline;
     }
-    #iframe-container {
+
+    .top-controls {
       display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .control-button {
+      font-size: 16px;
+      padding: 4px 10px;
+      cursor: pointer;
+    }
+
+    #start-button-wrapper {
+      flex-grow: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      margin-bottom: 20px;
+    }
+
+    #start-button {
+      background: linear-gradient(to right, #990000, #cc0000);
+      color: white;
+      font-size: 22px;
+      padding: 14px 30px;
+      border: none;
+      border-radius: 10px;
+      font-weight: bold;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
+      font-family: 'Georgia', serif;
+      letter-spacing: 1px;
+    }
+
+    #start-button:hover {
+      background: linear-gradient(to right, #cc0000, #ff3333);
+      transform: scale(1.05);
+    }
+
+    #iframe-container {
+      display: none;
       flex-grow: 1;
       gap: 20px;
     }
+
+    .iframe-column {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
     iframe {
-      width: 50%;
+      width: 100%;
       height: 100%;
       border: 1px solid #ccc;
       box-sizing: border-box;
@@ -41,18 +99,31 @@
 
   <div id="top-bar">
     <a id="back-link" href="create.html">← Back to Editor</a>
+    <div class="top-controls">
+      <button class="control-button" onclick="moveIframes('up')">⬆</button>
+      <button class="control-button" onclick="moveIframes('down')">⬇</button>
+    </div>
+  </div>
+
+  <div id="start-button-wrapper">
+    <button id="start-button" onclick="startRace()">Start Race</button>
   </div>
 
   <div id="iframe-container">
-    <iframe id="iframe1"></iframe>
-    <iframe id="iframe2"></iframe>
+    <div class="iframe-column">
+      <iframe id="iframe1"></iframe>
+    </div>
+    <div class="iframe-column">
+      <iframe id="iframe2"></iframe>
+    </div>
   </div>
 
   <script>
     const words = JSON.parse(localStorage.getItem('boardRaceWords') || '[]');
+    let currentMargin = parseInt(localStorage.getItem('raceMargin') || '0');
 
-    function generateContent(words) {
-      let content = `
+    function generateContent(words, marginTop) {
+      return `
         <html>
           <head>
             <style>
@@ -60,6 +131,8 @@
                 font-family: sans-serif;
                 margin: 20px;
                 font-size: 16px;
+                transition: margin-top 0.2s ease-in-out;
+                margin-top: ${marginTop}px;
               }
               p {
                 margin: 20px 0;
@@ -68,16 +141,12 @@
               }
             </style>
           </head>
-          <body>
+          <body id="inner-body">
+            ${words.slice(0, 10).map(line => `<p>${line || ''}</p>`).join('')}
+          </body>
+        </html>
       `;
-      for (let i = 0; i < Math.min(words.length, 10); i++) {
-        content += `<p>${words[i] || ''}</p>`;
-      }
-      content += `</body></html>`;
-      return content;
     }
-
-    const htmlContent = generateContent(words);
 
     function writeToIframe(iframe, content) {
       const doc = iframe.contentDocument || iframe.contentWindow.document;
@@ -89,8 +158,29 @@
     const iframe1 = document.getElementById('iframe1');
     const iframe2 = document.getElementById('iframe2');
 
+    const htmlContent = generateContent(words, currentMargin);
     writeToIframe(iframe1, htmlContent);
     writeToIframe(iframe2, htmlContent);
+
+    function moveIframes(direction) {
+      const step = 20;
+      currentMargin += (direction === 'down' ? step : -step);
+      currentMargin = Math.max(0, currentMargin);
+      localStorage.setItem('raceMargin', currentMargin);
+
+      [iframe1, iframe2].forEach(iframe => {
+        const doc = iframe.contentDocument || iframe.contentWindow.document;
+        const innerBody = doc.getElementById('inner-body');
+        if (innerBody) {
+          innerBody.style.marginTop = currentMargin + 'px';
+        }
+      });
+    }
+
+    function startRace() {
+      document.getElementById('start-button-wrapper').style.display = 'none';
+      document.getElementById('iframe-container').style.display = 'flex';
+    }
   </script>
 
 </body>
