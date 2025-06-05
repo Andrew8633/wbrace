@@ -1,56 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-S2G3J82KWQ"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-S2G3J82KWQ');
-</script>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-S2G3J82KWQ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-S2G3J82KWQ');
+  </script>
+<link rel="icon" type="image/png" href="favicon.png" />
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Welcome to WB Race</title>
+  <title>WB Race – ESL Board Race Game</title>
+  <meta name="description" content="Free whiteboard-based ESL board race activity for teachers. Create engaging vocabulary and grammar recall games your students will love." />
+  <meta name="keywords" content="ESL games, classroom activity, board race, whiteboard game, vocabulary review, grammar game, teacher tools" />
+  <meta name="author" content="WB Race" />
+
+
   <style>
     body {
       font-family: sans-serif;
       margin: 0;
-      padding: 20px;
-      line-height: 1.6;
+      padding: 40px;
       background-color: #f9f9f9;
-    }
-
-    h1, h2 {
       color: #333;
+      line-height: 1.6;
     }
 
-    a {
-      color: #0077cc;
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-
-    .section {
+    header {
+      text-align: center;
       margin-bottom: 30px;
     }
 
-    .button {
-      display: inline-block;
-      background-color: #0077cc;
-      color: white;
-      padding: 10px 20px;
-      border-radius: 5px;
-      text-decoration: none;
-      margin-top: 10px;
+    header h1 {
+      font-size: 2.5em;
+      margin-bottom: 0.2em;
     }
 
-    .button:hover {
-      background-color: #005fa3;
+    header p {
+      font-size: 1.2em;
+      margin-top: 0;
+    }
+
+    main {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: left;
+    }
+
+    h2 {
+      font-size: 1.6em;
+      margin-top: 40px;
+    }
+
+    p {
+      margin-bottom: 1em;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    ul li::before {
+      content: "✓ ";
+      color: #0077cc;
     }
 
     .highlight {
@@ -58,7 +73,7 @@
       border-left: 5px solid #ffecb5;
       padding: 10px;
       font-weight: bold;
-      margin: 15px 0;
+      margin: 25px 0;
       color: #856404;
     }
 
@@ -67,36 +82,59 @@
       color: #555;
       margin-top: 10px;
     }
+
+    .button-wrapper {
+      text-align: center;
+      margin: 30px 0;
+    }
+
+    a.button {
+      display: inline-block;
+      background-color: #0077cc;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 18px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    a.button:hover {
+      background-color: #005fa3;
+    }
   </style>
 </head>
 <body>
 
-  <h1>Welcome to WB Race</h1>
+  <header>
+    <h1>WB Race</h1>
+    <p>A classroom board race builder for ESL teachers</p>
+	<p>No accounts. No clutter. Just click and go.</p>
+  </header>
 
-  <div class="section">
-    <h2>What is a Board Race?</h2>
-    <p>A board race is a fast-paced classroom activity where students compete in teams to fill the board with correct answers as quickly as possible. It’s commonly used in ESL classrooms for vocabulary review, spelling, grammar, or any recall-based task.</p>
+  <main>
     <div class="highlight">
-      This site is designed to be <strong>projected directly onto the whiteboard</strong> — either using a standard projector or an interactive whiteboard — so students can race to complete the prompts using markers or touch input.
+      This site is designed to be <strong> projected directly onto the whiteboard </strong> — either using a standard projector or an interactive whiteboard — so students can race to complete the prompts using markers or touch input.
     </div>
-  </div>
+    
+    <div class="button-wrapper">
+      <a href="create.html" class="button">Open the Race Builder</a>
+    </div>
 
-  <div class="section">
-    <h2>Create or Edit a Race</h2>
-    <p>Use the builder to create new board race templates or load and update your saved ones. You can store up to 10 sets.</p>
-    <a href="create.html" class="button">Open the Race Builder</a>
-    <p class="note"><strong>Note:</strong> All templates are saved locally in your browser on this device. If you switch computers or browsers, your saved slots will not carry over.</p>
-  </div>
+    <h2>What is a Board Race?</h2>
+    <p>A board race is a high-energy classroom activity where students compete in teams to fill in answers on the board. It’s ideal for practicing vocabulary, grammar, and quick thinking — especially in ESL classrooms.</p>
 
-  <div class="section">
     <h2>How to Use WB Race</h2>
-    <ul>
-      <li>Create or load a template with up to 10 prompts or words.</li>
-      <li>Load the template to the race screen to project in class.</li>
-      <li>Students compete to write the answers quickly on the board.</li>
-      <li>You can edit, rename, and reuse any set anytime — from the same computer.</li>
-    </ul>
-  </div>
+<ul>
+  <li>Create or load a template with up to 10 prompts or words.</li>
+  <li>Load the template to the race screen to project in class.</li>
+  <li>Students compete to write the answers quickly on the board.</li>
+  <li>You can edit, rename, and reuse any set anytime — from the same computer.</li>
+</ul>
+
+
+    <p class="note"><strong>Note:</strong> All data is saved locally in your browser. Your sets won’t carry over between devices.</p>
+  </main>
 
 </body>
 </html>
