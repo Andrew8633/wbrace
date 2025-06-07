@@ -1,16 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-S2G3J82KWQ"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-S2G3J82KWQ');
-</script>
-<link rel="icon" type="image/png" href="favicon.png" />
   <meta charset="UTF-8" />
   <title>Board Race</title>
   <style>
@@ -88,6 +78,8 @@
       display: none;
       flex-grow: 1;
       gap: 20px;
+      margin-left: 0px;
+      transition: margin-left 0.3s;
     }
 
     .iframe-column {
@@ -110,8 +102,10 @@
   <div id="top-bar">
     <a id="back-link" href="create.html">← Back to Editor</a>
     <div class="top-controls">
-      <button class="control-button" onclick="moveIframes('up')">⬆</button>
-      <button class="control-button" onclick="moveIframes('down')">⬇</button>
+      <button class="control-button" onclick="moveIframes('up')">↑</button>
+      <button class="control-button" onclick="moveIframes('down')">↓</button>
+      <button class="control-button" onclick="moveIframes('left')">←</button>
+      <button class="control-button" onclick="moveIframes('right')">→</button>
     </div>
   </div>
 
@@ -130,7 +124,12 @@
 
   <script>
     const words = JSON.parse(localStorage.getItem('boardRaceWords') || '[]');
-    let currentMargin = parseInt(localStorage.getItem('raceMargin') || '0');
+    let currentMarginTop = parseInt(localStorage.getItem('raceMargin') || '0');
+    let currentMarginLeft = 0;
+
+    const iframe1 = document.getElementById('iframe1');
+    const iframe2 = document.getElementById('iframe2');
+    const iframeContainer = document.getElementById('iframe-container');
 
     function generateContent(words, marginTop) {
       return `
@@ -165,31 +164,37 @@
       doc.close();
     }
 
-    const iframe1 = document.getElementById('iframe1');
-    const iframe2 = document.getElementById('iframe2');
-
-    const htmlContent = generateContent(words, currentMargin);
-    writeToIframe(iframe1, htmlContent);
-    writeToIframe(iframe2, htmlContent);
-
     function moveIframes(direction) {
       const step = 20;
-      currentMargin += (direction === 'down' ? step : -step);
-      currentMargin = Math.max(0, currentMargin);
-      localStorage.setItem('raceMargin', currentMargin);
+      if (direction === 'up') {
+        currentMarginTop = Math.max(0, currentMarginTop - step);
+      } else if (direction === 'down') {
+        currentMarginTop += step;
+      } else if (direction === 'left') {
+        currentMarginLeft -= step;
+      } else if (direction === 'right') {
+        currentMarginLeft += step;
+      }
+
+      localStorage.setItem('raceMargin', currentMarginTop);
+      iframeContainer.style.marginLeft = currentMarginLeft + 'px';
 
       [iframe1, iframe2].forEach(iframe => {
         const doc = iframe.contentDocument || iframe.contentWindow.document;
         const innerBody = doc.getElementById('inner-body');
         if (innerBody) {
-          innerBody.style.marginTop = currentMargin + 'px';
+          innerBody.style.marginTop = currentMarginTop + 'px';
         }
       });
     }
 
     function startRace() {
       document.getElementById('start-button-wrapper').style.display = 'none';
-      document.getElementById('iframe-container').style.display = 'flex';
+      iframeContainer.style.display = 'flex';
+
+      const htmlContent = generateContent(words, currentMarginTop);
+      writeToIframe(iframe1, htmlContent);
+      writeToIframe(iframe2, htmlContent);
     }
   </script>
 
