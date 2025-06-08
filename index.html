@@ -138,16 +138,18 @@
   </main>
 
   <!-- Cookie banner element -->
-  <div id="cookie-consent-banner" style="display:none;">
+ <div id="cookie-consent-overlay" style="display:none;">
+  <div id="cookie-consent-modal">
     <p>
       We use cookies to improve your experience. By clicking “Accept,” you consent to our use of cookies. 
       <a href="/privacy-policy">Learn more</a>.
     </p>
-    <div>
+    <div class="buttons">
       <button id="cc-accept">Accept</button>
       <button id="cc-decline" class="decline">Decline</button>
     </div>
   </div>
+</div>
   <scr
 
   <!-- load consent logic -->

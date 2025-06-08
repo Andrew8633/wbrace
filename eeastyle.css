@@ -1,47 +1,45 @@
 /* eeastyle.css */
-#cookie-consent-banner {
+#cookie-consent-overlay {
   position: fixed;
-  bottom: 0; left: 0; right: 0;
-  background: #fff;
-  border-top: 1px solid #ccc;
-  padding: 1em;
-  font-family: sans-serif;
-  box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: rgba(0,0,0,0.4);
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   z-index: 10000;
 }
-#cookie-consent-banner p {
-  margin: 0 1em 0 0;
-  flex: 1 1 auto;
-  font-size: 0.9rem;
+#cookie-consent-modal {
+  background: #fff;
+  padding: 2em;
+  max-width: 400px;
+  width: 90%;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  text-align: center;
+}
+#cookie-consent-modal p {
+  margin-bottom: 1.5em;
+  font-size: 0.95rem;
   color: #333;
 }
-#cookie-consent-banner button {
-  margin-left: 0.5em;
-  padding: 0.5em 1em;
+#cookie-consent-modal .buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1em;
+}
+#cookie-consent-modal button {
+  padding: 0.5em 1.2em;
   border: none;
-  background: #007bff;
-  color: #fff;
-  cursor: pointer;
   border-radius: 4px;
   font-size: 0.9rem;
+  cursor: pointer;
 }
-#cookie-consent-banner button.decline {
-  background: #6c757d;
+#cookie-consent-modal button.decline {
+  background: #dc3545;
+  color: #fff;
 }
-@media (max-width: 600px) {
-  #cookie-consent-banner {
-    flex-direction: column;
-    text-align: center;
-  }
-  #cookie-consent-banner p {
-    margin-bottom: 0.75em;
-  }
-  #cookie-consent-banner button {
-    margin: 0.25em;
-    width: 120px;
-  }
+#cookie-consent-modal button#cc-accept {
+  background: #28a745;
+  color: #fff;
 }

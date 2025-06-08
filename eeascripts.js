@@ -1,14 +1,12 @@
 // eeascripts.js
-(function() {
-  const EEA_COUNTRIES = [
-    'AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IS',
-    'IE','IT','LV','LI','LT','LU','MT','NL','NO','PL','PT','RO','SK','SI','ES','SE','US'
-  ];
+document.addEventListener('DOMContentLoaded', () => {
+  const EEA_COUNTRIES = ['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IS','IE','IT','LV','LI','LT','LU','MT','NL','NO','PL','PT','RO','SK','SI','ES','SE', 'US'];
+  const REDIRECT_URL = '/sorry-no-cookies.html';
 
   function getCookie(name) {
     return document.cookie.split('; ').reduce((r, v) => {
-      const parts = v.split('=');
-      return parts[0] === name ? decodeURIComponent(parts[1]) : r;
+      const [k, v2] = v.split('=');
+      return k === name ? decodeURIComponent(v2) : r;
     }, '');
   }
 
@@ -17,41 +15,45 @@
     document.cookie = `${name}=${encodeURIComponent(value)}; expires=${expires}; path=/; SameSite=Lax`;
   }
 
-  function showBanner() {
-    const banner = document.getElementById('cookie-consent-banner');
-    banner.style.display = 'flex';
+  function showModal() {
+    const overlay = document.getElementById('cookie-consent-overlay');
+    overlay.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
 
-    document.getElementById('cc-accept').addEventListener('click', () => {
+    document.getElementById('cc-accept').onclick = () => {
       setCookie('cookie_consent', 'accepted', 365);
-      banner.remove();
+      closeModal();
       onConsent(true);
-    });
+    };
 
-    document.getElementById('cc-decline').addEventListener('click', () => {
+    document.getElementById('cc-decline').onclick = () => {
       setCookie('cookie_consent', 'declined', 365);
-      banner.remove();
-      onConsent(false);
-    });
+      window.location.href = REDIRECT_URL;
+    };
   }
 
-  // Override this to load or block your own scripts based on consent
+  function closeModal() {
+    const overlay = document.getElementById('cookie-consent-overlay');
+    overlay.remove();
+    document.body.style.overflow = '';
+  }
+
   function onConsent(accepted) {
     if (accepted) {
-      // e.g. dynamically load analytics here
+      // load your analytics/tracking scripts here
     }
   }
 
-  const consent = getCookie('cookie_consent');
-  if (!consent) {
+  if (!getCookie('cookie_consent')) {
     fetch('https://ipapi.co/json')
       .then(r => r.json())
       .then(data => {
         if (EEA_COUNTRIES.includes(data.country_code)) {
-          showBanner();
+          showModal();
         } else {
           setCookie('cookie_consent', 'non-eea', 365);
         }
       })
-      .catch(() => showBanner());
+      .catch(() => showModal());
   }
-})();
+});
