@@ -24,21 +24,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Dynamically load and initialize Google Analytics
   function injectGtag() {
-    // 1) Load the gtag.js library
+    const head = document.head;
+
+    // 1) Load the gtag.js library at the top of <head>
     const gaScript = document.createElement('script');
     gaScript.async = true;
     gaScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-S2G3J82KWQ';
-    document.head.appendChild(gaScript);
+    head.insertBefore(gaScript, head.firstChild);
 
-    // 2) Insert inline config to ensure gtag is initialized
+    // 2) Insert inline config immediately after the loader
     const inlineScript = document.createElement('script');
-    inlineScript.text = `
+    inlineScript.textContent = `
       window.dataLayer = window.dataLayer || [];
       function gtag(){ dataLayer.push(arguments); }
+      window.gtag = gtag;
       gtag('js', new Date());
       gtag('config', 'G-S2G3J82KWQ');
     `;
-    document.head.appendChild(inlineScript);
+    head.insertBefore(inlineScript, gaScript.nextSibling);
   }
 
   // Show the consent modal
