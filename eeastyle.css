@@ -1,0 +1,47 @@
+/* eeastyle.css */
+#cookie-consent-banner {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background: #fff;
+  border-top: 1px solid #ccc;
+  padding: 1em;
+  font-family: sans-serif;
+  box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 10000;
+}
+#cookie-consent-banner p {
+  margin: 0 1em 0 0;
+  flex: 1 1 auto;
+  font-size: 0.9rem;
+  color: #333;
+}
+#cookie-consent-banner button {
+  margin-left: 0.5em;
+  padding: 0.5em 1em;
+  border: none;
+  background: #007bff;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+#cookie-consent-banner button.decline {
+  background: #6c757d;
+}
+@media (max-width: 600px) {
+  #cookie-consent-banner {
+    flex-direction: column;
+    text-align: center;
+  }
+  #cookie-consent-banner p {
+    margin-bottom: 0.75em;
+  }
+  #cookie-consent-banner button {
+    margin: 0.25em;
+    width: 120px;
+  }
+}
