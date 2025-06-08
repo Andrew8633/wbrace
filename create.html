@@ -1,16 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-S2G3J82KWQ"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-S2G3J82KWQ');
-</script>
 <link rel="icon" type="image/png" href="favicon.png" />
+<link rel="stylesheet" href="eeastyle.css">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Create a Board Race</title>
@@ -104,6 +96,18 @@
       </div>
     </div>
   </div>
+  <div id="cookie-consent-overlay" style="display:none;">
+  <div id="cookie-consent-modal">
+    <p>
+      We use cookies to improve your experience. By clicking “Accept,” you consent to our use of cookies.
+      <a href="/privacy-policy"></a>
+    </p>
+    <div class="buttons">
+      <button id="cc-accept">Accept</button>
+      <button id="cc-decline" class="decline">Decline</button>
+    </div>
+  </div>
+</div>
 
   <script>
     const slotCount = 10;
@@ -210,6 +214,6 @@
       window.location.href = "race.html";
     }
   </script>
-
+<script src="eeascripts.js"></script>
 </body>
 </html>
