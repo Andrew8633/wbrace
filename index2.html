@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+<link rel="icon" type="image/png" href="favicon.png" />
+ <link rel="stylesheet" href="eeastyle.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>WB Race – ESL Board Race Game</title>
+  <meta name="description" content="Free whiteboard-based ESL board race activity for teachers. Create engaging vocabulary and grammar recall games your students will love." />
+  <meta name="keywords" content="ESL games, classroom activity, board race, whiteboard game, vocabulary review, grammar game, teacher tools" />
+  <meta name="author" content="WB Race" />
+
+
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 40px;
+      background-color: #f9f9f9;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    header h1 {
+      font-size: 2.5em;
+      margin-bottom: 0.2em;
+    }
+
+    header p {
+      font-size: 1.2em;
+      margin-top: 0;
+    }
+
+    main {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: left;
+    }
+
+    h2 {
+      font-size: 1.6em;
+      margin-top: 40px;
+    }
+
+    p {
+      margin-bottom: 1em;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    ul li::before {
+      content: "✓ ";
+      color: #0077cc;
+    }
+
+    .highlight {
+      background-color: #fff3cd;
+      border-left: 5px solid #ffecb5;
+      padding: 10px;
+      font-weight: bold;
+      margin: 25px 0;
+      color: #856404;
+    }
+
+    .note {
+      font-size: 0.95em;
+      color: #555;
+      margin-top: 10px;
+    }
+
+    .button-wrapper {
+      text-align: center;
+      margin: 30px 0;
+    }
+
+    a.button {
+      display: inline-block;
+      background-color: #0077cc;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 18px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    a.button:hover {
+      background-color: #005fa3;
+    }
+	  .login-panel {
+    max-width: 360px;
+    margin: 40px auto;
+    padding: 24px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    font-family: sans-serif;
+  }
+
+  .login-panel h2 {
+    margin-bottom: 16px;
+    font-size: 1.5rem;
+    text-align: center;
+    color: #333;
+  }
+
+  .login-panel label {
+    display: block;
+    margin: 12px 0 4px;
+    font-size: 0.9rem;
+    color: #555;
+  }
+
+  .login-panel input[type="text"],
+  .login-panel input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    box-sizing: border-box;
+  }
+
+  .login-panel .remember-me {
+    margin: 12px 0;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+  }
+
+  .login-panel .remember-me input {
+    margin-right: 6px;
+  }
+
+  .login-panel button {
+    width: 100%;
+    padding: 12px;
+    background: #0077cc;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 16px;
+  }
+  .login-panel button:hover {
+    background: #005fa3;
+  }
+
+  .login-panel .login-links {
+    margin-top: 16px;
+    text-align: center;
+    font-size: 0.85rem;
+  }
+
+  .login-panel .login-links a {
+    color: #0077cc;
+    text-decoration: none;
+  }
+  .login-panel .login-links a:hover {
+    text-decoration: underline;
+  }
+  
+  .log {
+  
+    text-align: center;
+  margin: 16px 0; /* optional spacing */
+  font-weight: bold; /* optional styling */
+  color: #666;   
+  }
+  .padtop {
+  margin-top: -10px;
+  }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1 class="padtop">WB Race</h1>
+    <p>A classroom board race builder for ESL teachers</p>
+	
+  </header>
+
+  <main>
+    <div class="highlight">
+      This site is designed to be <strong> projected directly onto the whiteboard </strong> — either using a standard projector or an interactive whiteboard — so students can race to complete the prompts using markers or touch input.
+    </div>
+    <div>
+	<div class="login-panel">
+  <h2 class="padtop">Sign In</h2>
+  <form id="loginForm">
+    <label for="login-user">Username</label>
+    <input type="text" id="login-user" name="username" placeholder="Enter username" required>
+
+    <label for="login-pass">Password</label>
+    <input type="password" id="login-pass" name="password" placeholder="Enter password" required>
+
+    <!-- <div class="remember-me">
+      <input type="checkbox" id="remember" name="remember">
+      <label for="remember">Remember me</label>
+    </div> -->
+
+    <button type="submit">Log In</button>
+
+    <p class="login-links">
+      <a href="user-create.php">Register</a> 
+     <!-- <a href="create-class.php">Create Class</a> -->
+    </p>
+  </form>
+</div><p class="log"><i>---or---</i></p></div>
+
+    <div class="button-wrapper">
+      <a href="create.html" class="button">Open the Race Builder</a>
+    </div>
+
+    <h2>What is a Board Race?</h2>
+    <p>A board race is a high-energy classroom activity where students compete in teams to fill in answers on the board. It’s ideal for practicing vocabulary, grammar, and quick thinking — especially in ESL classrooms.</p>
+
+    <h2>How to Use WB Race</h2>
+<ul>
+  <li>Create or load a template with up to 10 prompts or words.</li>
+  <li>Load the template to the race screen to project in class.</li>
+  <li>Students compete to write the answers quickly on the board.</li>
+  <li>You can edit, rename, and reuse any set anytime — from the same computer.</li>
+</ul>
+
+
+    <p class="note"><strong>Note:</strong> All data is saved locally in your browser. Your sets won’t carry over between devices.</p>
+  </main>
+
+  <!-- Cookie banner element -->
+ <div id="cookie-consent-overlay" style="display:none;">
+  <div id="cookie-consent-modal">
+    <p>
+      We use cookies to improve your experience. By clicking “Accept,” you consent to our use of cookies. 
+      <a href="/privacy-policy"></a>
+    </p>
+    <div class="buttons">
+      <button id="cc-accept">Accept</button>
+      <button id="cc-decline" class="decline">Decline</button>
+    </div>
+  </div>
+</div>
+  <scr
+
+  <!-- load consent logic -->
+  <script src="eeascripts.js"></script>
+</body>
